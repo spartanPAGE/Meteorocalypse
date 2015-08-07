@@ -1,6 +1,10 @@
 #pragma once
+#include <string>
 
 struct Character{
+    std::string name;
+    std::string image_path;
+
     enum class Personality{
         FRIENDLY, UNFRIENDLY
     } personality;

@@ -1,5 +1,10 @@
-#ifndef CHARACTERSMANAGER_HPP
-#define CHARACTERSMANAGER_HPP
+#pragma once
+#include "character.hpp"
+#include <map>
 
-#endif // CHARACTERSMANAGER_HPP
-
+class CharactersManager{
+public:
+    CharactersManager();
+private:
+    std::map<Character::Name, Character> characters;
+};

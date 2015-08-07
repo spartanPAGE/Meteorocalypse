@@ -21,4 +21,29 @@ struct Character{
         unsigned max;
         unsigned actual;
     } thirst;
+
+    struct SusceptibilityFor{
+        double exhaustion;
+        double fatique;
+    } susceptibilityFor;
+
+    struct Daily{
+        struct Strength{
+            unsigned max;
+            unsigned avail;
+        } strength;
+
+        struct Time{
+            unsigned max;
+            unsigned avail;
+        } time;
+
+        struct Hunger{
+            unsigned value;
+        } hunger;
+
+        struct Thirst{
+            unsigned value;
+        } thirst;
+    };
 };

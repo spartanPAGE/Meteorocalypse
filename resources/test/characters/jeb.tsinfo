@@ -1,0 +1,24 @@
+treestructinfo "2.0" name "Jeb"
+  attr image path ""
+
+  attr personality "FRIENDLY"
+
+  node Health
+    attr max "100"
+    attr loss ratio "1"
+    attr gain ratio "1"
+  end node
+
+  node Hunger
+    attr max "6"
+  end node
+
+  node Thirst
+    attr max "5"
+  end node
+
+  node Susceptibility For
+    attr exhaustion "1"
+    attr fatique "1"
+  end node
+end tree

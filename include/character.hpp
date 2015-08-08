@@ -54,3 +54,5 @@ struct Character{
         } thirst;
     };
 };
+
+Character::Personality character_personality_from_string(const std::string &);

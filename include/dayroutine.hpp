@@ -28,9 +28,9 @@ public:
 private:
     Results produce_morning_results(const Day &);
 private:
-    ResultsProducer onMorning;
-    ResultsConsumer onMorningResults;
+    ResultsProducer on_morning;
+    ResultsConsumer on_morning_results;
 
-    ResultsProducer onInventoryDistribution;
-    ResultsConsumer onInventoryDistributionResults;
+    ResultsProducer on_inventory_distribution;
+    ResultsConsumer on_inventory_distribution_results;
 };

@@ -7,6 +7,7 @@
 class CharactersLoader{
 public:
     using Path = std::string;
+    using Characters = std::list<Character>;
 public:
     enum class PathInUse{
         MAIN, ALTERNATIVE, UNSPECIFIED
@@ -21,6 +22,8 @@ public:
     bool test_paths();
     void load_list();
     bool has_loaded_list() const;
+
+    Characters load_characters() const;
 private:
     const Path main_path;
     const Path alternative_path;

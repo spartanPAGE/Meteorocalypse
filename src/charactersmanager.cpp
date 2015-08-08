@@ -39,11 +39,19 @@ void CharactersLoader::load_list(){
     std::string line;
     while(std::getline(in, line))
         if(!line.empty())
-            to_load.push_back(line);
+            to_load.push_back(line+".tsinfo");
 }
 
 bool CharactersLoader::has_loaded_list() const{
     return to_load.size() != 0;
+}
+
+CharactersLoader::Characters CharactersLoader::load_characters() const{
+    Characters characters;
+    for(const auto &character_path : to_load){
+        characters.push_back(TSIMapper::to_character(load_character_tsi(character_path)));
+    }
+    return characters;
 }
 
 

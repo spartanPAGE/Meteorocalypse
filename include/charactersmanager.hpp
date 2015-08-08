@@ -20,7 +20,7 @@ public:
     PathInUse path_in_use() const;
     Path real_path() const;
     bool test_paths();
-    void load_list();
+    bool load_list();
     bool has_loaded_list() const;
 
     Characters load_characters() const;
@@ -37,6 +37,8 @@ private:
 class CharactersManager{
 public:
     CharactersManager(CharactersLoader &&);
+public:
+    void load_all();
 private:
     CharactersLoader characters_loader;
     std::map<Character::Name, Character> characters;

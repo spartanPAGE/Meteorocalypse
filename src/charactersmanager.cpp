@@ -34,7 +34,7 @@ bool CharactersLoader::test_paths(){
     return used_path != PathInUse::UNSPECIFIED;
 }
 
-void CharactersLoader::load_list(){
+bool CharactersLoader::load_list(){
     Path list_path = real_path();
 
     std::ifstream in(list_path+characters_list);
@@ -42,6 +42,7 @@ void CharactersLoader::load_list(){
     while(std::getline(in, line))
         if(!line.empty())
             to_load.push_back(line+".tsinfo");
+    return has_loaded_list();
 }
 
 bool CharactersLoader::has_loaded_list() const{
@@ -61,3 +62,14 @@ CharactersLoader::Characters CharactersLoader::load_characters() const{
 
 CharactersManager::CharactersManager(CharactersLoader &&loader):
     characters_loader(loader){}
+
+void CharactersManager::load_all(){
+    if(!characters_loader.test_paths())
+        throw std::runtime_error("CharactersLoader::test_paths() failed");
+    if(!characters_loader.load_list())
+        throw std::runtime_error("CharactersLoader::load_list() failed");
+    auto characters = characters_loader.load_characters();
+    for(const auto &character : characters){
+        this->characters[character.name] = character;
+    }
+}

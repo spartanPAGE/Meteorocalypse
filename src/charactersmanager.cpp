@@ -87,3 +87,17 @@ void CharactersManager::for_each(function<void (const Character &)> func) const{
         func(name_obj_pair.second);
     }
 }
+
+void CharactersManager::for_exact(
+        const Character::Name &name,
+        function<void (Character &)> func
+){
+    func(characters.at(name));
+}
+
+void CharactersManager::for_exact(
+        const Character::Name &name,
+        function<void (const Character &)> func
+) const{
+    func(characters.at(name));
+}

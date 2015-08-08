@@ -4,6 +4,8 @@
 #include <fstream>
 #include <exception>
 
+using namespace std;
+
 CharactersLoader::CharactersLoader(const Path &main, const Path &alter):
     main_path(main), alternative_path(alter){}
 
@@ -20,15 +22,15 @@ CharactersLoader::Path CharactersLoader::real_path() const{
     if(used_path == PathInUse::ALTERNATIVE)
         return alternative_path;
 
-    throw std::runtime_error("Cannot access real_path when used_path == UNSPECIFIED");
+    throw runtime_error("Cannot access real_path when used_path == UNSPECIFIED");
     return "";
 }
 
 bool CharactersLoader::test_paths(){
-    if(std::ifstream(main_path+characters_list)){
+    if(ifstream(main_path+characters_list)){
         used_path = PathInUse::MAIN;
     } else
-    if(std::ifstream(alternative_path+characters_list)){
+    if(ifstream(alternative_path+characters_list)){
         used_path = PathInUse::ALTERNATIVE;
     }
     return used_path != PathInUse::UNSPECIFIED;
@@ -37,9 +39,9 @@ bool CharactersLoader::test_paths(){
 bool CharactersLoader::load_list(){
     Path list_path = real_path();
 
-    std::ifstream in(list_path+characters_list);
-    std::string line;
-    while(std::getline(in, line))
+    ifstream in(list_path+characters_list);
+    string line;
+    while(getline(in, line))
         if(!line.empty())
             to_load.push_back(line+".tsinfo");
     return has_loaded_list();
@@ -65,11 +67,23 @@ CharactersManager::CharactersManager(CharactersLoader &&loader):
 
 void CharactersManager::load_all(){
     if(!characters_loader.test_paths())
-        throw std::runtime_error("CharactersLoader::test_paths() failed");
+        throw runtime_error("CharactersLoader::test_paths() failed");
     if(!characters_loader.load_list())
-        throw std::runtime_error("CharactersLoader::load_list() failed");
+        throw runtime_error("CharactersLoader::load_list() failed");
     auto characters = characters_loader.load_characters();
     for(const auto &character : characters){
         this->characters[character.name] = character;
+    }
+}
+
+void CharactersManager::for_each(function<void (Character &)> func){
+    for(auto &name_obj_pair : characters){
+        func(name_obj_pair.second);
+    }
+}
+
+void CharactersManager::for_each(function<void (const Character &)> func) const{
+    for(const auto &name_obj_pair : characters){
+        func(name_obj_pair.second);
     }
 }

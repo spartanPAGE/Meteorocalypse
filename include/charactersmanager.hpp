@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <list>
+#include <functional>
 
 class CharactersLoader{
 public:
@@ -39,6 +40,8 @@ public:
     CharactersManager(CharactersLoader &&);
 public:
     void load_all();
+    void for_each(std::function<void(Character &)>);
+    void for_each(std::function<void(const Character &)>) const;
 private:
     CharactersLoader characters_loader;
     std::map<Character::Name, Character> characters;

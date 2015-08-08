@@ -19,5 +19,5 @@ private:
 
     DaysManager daysManager;
     DayRoutine dayRoutine;
-    CharactersManager charactersManager;
+    CharactersManager characters_manager;
 };

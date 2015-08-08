@@ -27,6 +27,7 @@ SCENARIO("Can load characters", "[CharactersLoader]"){
                             auto &tomasz = characters.front();
                             THEN("Tomasz should match the .tsinfo representation"){
                                 REQUIRE(tomasz.name == "Tomasz");
+                                REQUIRE(tomasz.personality == Character::Personality::FRIENDLY);
                             }
                         }
                     }

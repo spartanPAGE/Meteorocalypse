@@ -1,4 +1,5 @@
 #include "gameplay.hpp"
+#include "charactersmanager.hpp"
 
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"
@@ -23,6 +24,11 @@ int catch_main(int argc, char * const argv[]){
 int main( int argc, char* const argv[] ){
     auto result = catch_main(argc, argv);
     if(result) return result;
+
+    CharactersLoader loader;
+    assert(loader.test_paths());
+    //resources are located in project path, so for now thats the only way
+    assert(loader.path_in_use() == CharactersLoader::PathInUse::ALTERNATIVE);
 
     Gameplay gameplay;
     gameplay.start();

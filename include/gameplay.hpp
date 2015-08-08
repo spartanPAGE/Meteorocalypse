@@ -12,8 +12,8 @@ public:
     bool has_finished() const;
 
 private:
-private:
     void load_all();
+
 private:
     bool running;
 

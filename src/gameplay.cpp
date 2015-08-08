@@ -1,14 +1,17 @@
 #include "gameplay.hpp"
 
-Gameplay::Gameplay(): running(true), charactersManager(CharactersLoader()){
+Gameplay::Gameplay():
+    characters_manager(CharactersLoader()),
+    days_manager(characters_manager)
+{
     //Todo: fill dayRoutine with producers/consumers
 }
 
 void Gameplay::start(){
     load_all();
     while(is_running()){
-        auto day = daysManager.fetch_next();
-        dayRoutine.for_next(day);
+        auto day = days_manager.fetch_next();
+        day_routine.for_next(day);
     }
 }
 
@@ -21,5 +24,5 @@ bool Gameplay::has_finished() const{
 }
 
 void Gameplay::load_all(){
-    charactersManager.load_all();
+    characters_manager.load_all();
 }

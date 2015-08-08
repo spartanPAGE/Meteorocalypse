@@ -15,9 +15,9 @@ private:
     void load_all();
 
 private:
-    bool running;
+    bool running = true;
 
+    CharactersManager characters_manager;
     DaysManager days_manager;
     DayRoutine day_routine;
-    CharactersManager characters_manager;
 };

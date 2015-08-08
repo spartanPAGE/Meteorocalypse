@@ -50,8 +50,10 @@ bool CharactersLoader::has_loaded_list() const{
 
 CharactersLoader::Characters CharactersLoader::load_characters() const{
     Characters characters;
+    auto real_path = this->real_path();
     for(const auto &character_path : to_load){
-        characters.push_back(TSIMapper::to_character(TSILoader::load_tree(character_path)));
+        auto &&path = real_path + character_path;
+        characters.push_back(TSIMapper::to_character(TSILoader::load_tree(path)));
     }
     return characters;
 }

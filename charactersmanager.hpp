@@ -2,6 +2,7 @@
 #include "character.hpp"
 #include <map>
 #include <string>
+#include <list>
 
 class CharactersLoader{
 public:
@@ -16,13 +17,18 @@ public:
                      Path &&alternative_path = "../Meteorocalypse/resources/characters/");
 public:
     PathInUse path_in_use() const;
+    Path real_path() const;
     bool test_paths();
+    void load_list();
+    bool has_loaded_list() const;
 private:
     const Path main_path;
     const Path alternative_path;
     const Path characters_list = "list.txt";
 
     PathInUse used_path = PathInUse::UNSPECIFIED;
+
+    std::list<Path> to_load;
 };
 
 class CharactersManager{

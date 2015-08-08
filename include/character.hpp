@@ -34,14 +34,20 @@ struct Character{
         double fatique;
     } susceptibilityFor;
 
+    struct Strength{
+        unsigned max;
+    } strength;
+
+    struct Time{
+        unsigned max;
+    } time;
+
     struct Daily{
         struct Strength{
-            unsigned max;
             unsigned avail;
         } strength;
 
         struct Time{
-            unsigned max;
             unsigned avail;
         } time;
 

@@ -21,4 +21,12 @@ treestructinfo "2.0" name "Tomasz"
     attr exhaustion "1"
     attr fatique "1"
   end node
+
+  node Strength
+    attr max "10"
+  end node
+
+  node Time
+    attr max "16"
+  end
 end tree

@@ -19,9 +19,14 @@ Character TSIMapper::to_character(const TreeStructInfo::Default::Tree &tree){
     const auto &thirst_node = tree.findNode("Thirst");
     character.thirst.max = stoul(thirst_node.findAttribute("max"));
 
-    const auto &susceptibility_for = tree.findNode("Susceptibility For");
-    character.susceptibilityFor.exhaustion = stod(susceptibility_for.findAttribute("exhaustion"));
-    character.susceptibilityFor.fatique    = stod(susceptibility_for.findAttribute("fatique"));
+    const auto &susceptibility_for_node = tree.findNode("Susceptibility For");
+    character.susceptibilityFor.exhaustion = stod(susceptibility_for_node.findAttribute("exhaustion"));
+    character.susceptibilityFor.fatique    = stod(susceptibility_for_node.findAttribute("fatique"));
 
+    const auto &strength_node = tree.findNode("Strength");
+    character.strength.max = stoul(strength_node.findAttribute("max"));
+
+    const auto &time_node = tree.findNode("Time");
+    character.time.max = stoul(time_node.findAttribute("max"));
     return character;
 }

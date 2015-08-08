@@ -5,6 +5,10 @@
 #include <map>
 #include <string>
 
+class Daily{
+
+};
+
 class DayRoutine{
 public:
     using Results = std::map<std::string, std::string>;

@@ -1,6 +1,7 @@
 #pragma once
 #include "daysmanager.hpp"
 #include "dayroutine.hpp"
+#include "charactersmanager.hpp"
 
 class Gameplay{
 public:
@@ -11,8 +12,12 @@ public:
     bool has_finished() const;
 
 private:
+private:
+    void load_all();
+private:
     bool running;
 
     DaysManager daysManager;
     DayRoutine dayRoutine;
+    CharactersManager charactersManager;
 };

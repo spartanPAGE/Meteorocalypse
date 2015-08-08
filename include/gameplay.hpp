@@ -17,7 +17,7 @@ private:
 private:
     bool running;
 
-    DaysManager daysManager;
-    DayRoutine dayRoutine;
+    DaysManager days_manager;
+    DayRoutine day_routine;
     CharactersManager characters_manager;
 };

@@ -7,55 +7,37 @@
 using namespace std;
 
 CharactersLoader::CharactersLoader(const Path &main, const Path &alter):
-    main_path(main), alternative_path(alter){}
+    list_loader(ext, characters_dir, list_path, main, alter){}
 
 CharactersLoader::CharactersLoader(Path &&main, Path &&alter):
-    main_path(main), alternative_path(alter){}
+    list_loader(ext, characters_dir, list_path, main, alter){}
 
 CharactersLoader::PathInUse CharactersLoader::path_in_use() const{
-    return used_path;
+    return list_loader.path_in_use();
 }
 
 CharactersLoader::Path CharactersLoader::real_path() const{
-    if(used_path == PathInUse::MAIN)
-        return main_path;
-    if(used_path == PathInUse::ALTERNATIVE)
-        return alternative_path;
-
-    throw runtime_error("Cannot access real_path when used_path == UNSPECIFIED");
-    return "";
+    return list_loader.real_path();
 }
 
 bool CharactersLoader::test_paths(){
-    if(ifstream(main_path+characters_list)){
-        used_path = PathInUse::MAIN;
-    } else
-    if(ifstream(alternative_path+characters_list)){
-        used_path = PathInUse::ALTERNATIVE;
-    }
-    return used_path != PathInUse::UNSPECIFIED;
+    return list_loader.test_paths();
 }
 
 bool CharactersLoader::load_list(){
-    Path list_path = real_path();
-
-    ifstream in(list_path+characters_list);
-    string line;
-    while(getline(in, line))
-        if(!line.empty())
-            to_load.push_back(line+".tsinfo");
-    return has_loaded_list();
+    return list_loader.load_list();
 }
 
 bool CharactersLoader::has_loaded_list() const{
-    return to_load.size() != 0;
+    return list_loader.has_loaded_list();
 }
 
 CharactersLoader::Characters CharactersLoader::load_characters() const{
     Characters characters;
     auto real_path = this->real_path();
+    auto to_load = list_loader.list_to_load();
     for(const auto &character_path : to_load){
-        auto &&path = real_path + character_path;
+        auto &&path = real_path + characters_dir + character_path;
         characters.push_back(TSIMapper::to_character(TSILoader::load_tree(path)));
     }
     return characters;

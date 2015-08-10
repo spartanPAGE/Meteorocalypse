@@ -1,5 +1,6 @@
 #pragma once
 #include "character.hpp"
+#include "listloader.hpp"
 #include <map>
 #include <string>
 #include <list>
@@ -7,16 +8,14 @@
 
 class CharactersLoader{
 public:
-    using Path = std::string;
-    using Characters = std::list<Character>;
-public:
-    enum class PathInUse{
-        MAIN, ALTERNATIVE, UNSPECIFIED
-    };
+    using Path = ListLoader::Path;
+    using PathInUse = ListLoader::PathInUse;
+    using Extension = ListLoader::Extension;
+    using Characters = std::list<Character>;    
 public:
     CharactersLoader(const Path &main_path, const Path &alternative_path);
-    CharactersLoader(Path &&main_path        = "resources/characters/",
-                     Path &&alternative_path = "../Meteorocalypse/resources/characters/");
+    CharactersLoader(Path &&main_path        = "resources/",
+                     Path &&alternative_path = "../Meteorocalypse/resources/");
 public:
     PathInUse path_in_use() const;
     Path real_path() const;
@@ -26,13 +25,10 @@ public:
 
     Characters load_characters() const;
 private:
-    const Path main_path;
-    const Path alternative_path;
-    const Path characters_list = "list.txt";
-
-    PathInUse used_path = PathInUse::UNSPECIFIED;
-
-    std::list<Path> to_load;
+    const Path characters_dir = "characters/";
+    const Path list_path = "list.txt";
+    const Extension ext = ".tsinfo";
+    ListLoader list_loader;
 };
 
 class CharactersManager{

@@ -1,32 +1,28 @@
 #include "tsimapper.hpp"
+#include "CandiedTree.hpp"
 using namespace std;
+using TreeStructInfo::makeCandied;
 
 Character TSIMapper::to_character(const TreeStructInfo::Default::Tree &tree){
     Character character;
+    auto candied = makeCandied(tree);
 
-    character.name = tree.name;
-    character.image_path = tree.findAttribute("image path");
-    character.personality = character_personality_from_string(tree.findAttribute("personality"));
+    character.name       = candied.name();
+    character.image_path = candied.readValue("image path");
+    character.personality = character_personality_from_string(candied.readValue("personality"));
 
-    const auto &health_node = tree.findNode("Health");
-    character.health.max        = stoul(health_node.findAttribute("max"));
-    character.health.loss_ratio = stod(health_node.findAttribute("loss ratio"));
-    character.health.gain_ratio = stod(health_node.findAttribute("gain ratio"));
+    character.health.max        = candied.readUnsigned  ("Health/max",        0);
+    character.health.loss_ratio = candied.readReal      ("Health/loss ratio", 0.0);
+    character.health.gain_ratio = candied.readReal      ("Health/gain ratio", 0.0);
 
-    const auto &hunger_node = tree.findNode("Hunger");
-    character.hunger.max = stoul(hunger_node.findAttribute("max"));
+    character.hunger.max = candied.readUnsigned("Hunger/max", 0);
+    character.thirst.max = candied.readUnsigned("Thirst/max", 0);
 
-    const auto &thirst_node = tree.findNode("Thirst");
-    character.thirst.max = stoul(thirst_node.findAttribute("max"));
+    character.susceptibilityFor.exhaustion = candied.readReal("Susceptibility For/exhaustion", 0.0);
+    character.susceptibilityFor.fatique    = candied.readReal("Susceptibility For/fatique",    0.0);
 
-    const auto &susceptibility_for_node = tree.findNode("Susceptibility For");
-    character.susceptibilityFor.exhaustion = stod(susceptibility_for_node.findAttribute("exhaustion"));
-    character.susceptibilityFor.fatique    = stod(susceptibility_for_node.findAttribute("fatique"));
+    character.strength.max = candied.readUnsigned("Strength/max", 0);
+    character.time.max     = candied.readUnsigned("Time/max", 0);
 
-    const auto &strength_node = tree.findNode("Strength");
-    character.strength.max = stoul(strength_node.findAttribute("max"));
-
-    const auto &time_node = tree.findNode("Time");
-    character.time.max = stoul(time_node.findAttribute("max"));
     return character;
 }

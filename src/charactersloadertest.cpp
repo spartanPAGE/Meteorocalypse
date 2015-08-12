@@ -3,7 +3,7 @@
 
 SCENARIO("Can load characters", "[CharactersLoader]"){
     GIVEN("New instance of CharactersLoader with paths set on resources->test->characters"){
-        CharactersLoader loader("resources/test/characters/", "../Meteorocalypse/resources/test/characters/");
+        CharactersLoader loader("resources/test/", "../Meteorocalypse/resources/test/");
         WHEN("Trying to load list of characters"){
             THEN("At the begining, path is unspecified"){
                 REQUIRE(loader.path_in_use() == CharactersLoader::PathInUse::UNSPECIFIED);

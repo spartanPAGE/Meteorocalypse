@@ -31,13 +31,12 @@ public:
     bool has_loaded_list() const;
     ToLoadList list_to_load() const;
 private:
-    const Path main_path;
-    const Path alternative_path;
-    const Path list_path;
-
-    PathInUse used_path = PathInUse::UNSPECIFIED;
     const Extension files_ext;
     const Path location_dir;
+    const Path list_path;
+    const Path main_path;
+    const Path alternative_path;
+    PathInUse used_path = PathInUse::UNSPECIFIED;
 
     ToLoadList to_load;
 };

@@ -2,9 +2,11 @@
 #include "tsimapper.hpp"
 #include "tsiloader.hpp"
 
-char dir[] = "characters/";
-char list_file[] = "list.txt";
-char ext[] = ".tsinfo";
+namespace CharactersLoaderInfo{
+    char dir[] = "characters/";
+    char list_file[] = "list.txt";
+    char ext[] = ".tsinfo";
+}
 
 Character load_character(const ListLoader::Path &path){
     return TSIMapper::to_character(TSILoader::load_tree(path));

@@ -8,7 +8,6 @@ Character TSIMapper::to_character(const TreeStructInfo::Default::Tree &tree){
     auto candied = makeCandied(tree);
 
     character.name       = candied.name();
-    character.image_path = candied.readValue("image path");
     character.personality = character_personality_from_string(candied.readValue("personality"));
 
     character.health.max        = candied.readUnsigned  ("Health/max",        0);

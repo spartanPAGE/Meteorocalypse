@@ -3,10 +3,8 @@
 
 struct Character{
     using Name = std::string;
-    using Path = std::string;
 
     Name name;
-    Path image_path;
 
     enum class Personality{
         FRIENDLY, UNFRIENDLY

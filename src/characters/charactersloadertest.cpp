@@ -1,5 +1,5 @@
 #include "Catch.hpp"
-#include "charactersmanager.hpp"
+#include "characters/charactersmanager.hpp"
 
 SCENARIO("Can load characters", "[CharactersLoader]"){
     GIVEN("New instance of CharactersLoader with paths set on resources->test->characters"){
@@ -19,7 +19,7 @@ SCENARIO("Can load characters", "[CharactersLoader]"){
                         REQUIRE(loader.has_loaded_list());
                     }
                     WHEN("loading characters"){
-                        auto characters = loader.load_characters();
+                        auto characters = loader.load(load_character);
                         THEN("the characters size is eq to 2 (count of characters in test->characters)"){
                             REQUIRE(characters.size() == 2);
                         }

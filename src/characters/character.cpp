@@ -1,4 +1,4 @@
-#include "character.hpp"
+#include "characters/character.hpp"
 #include <exception>
 
 Character::Personality character_personality_from_string(const std::string &str){

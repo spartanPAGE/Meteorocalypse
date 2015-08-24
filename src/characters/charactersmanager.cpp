@@ -1,4 +1,4 @@
-#include "charactersmanager.hpp"
+#include "characters/charactersmanager.hpp"
 #include <exception>
 using namespace std;
 
@@ -6,11 +6,7 @@ CharactersManager::CharactersManager(CharactersLoader &&loader):
     characters_loader(loader){}
 
 void CharactersManager::load_all(){
-    if(!characters_loader.test_paths())
-        throw runtime_error("CharactersLoader::test_paths() failed");
-    if(!characters_loader.load_list())
-        throw runtime_error("CharactersLoader::load_list() failed");
-    auto characters = characters_loader.load_characters();
+    auto characters = load_characters(characters_loader);
     for(const auto &character : characters){
         this->characters[character.name] = character;
     }

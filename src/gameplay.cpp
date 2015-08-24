@@ -4,7 +4,10 @@ Gameplay::Gameplay():
     characters_manager(CharactersLoader()),
     days_manager(characters_manager)
 {
-    //Todo: fill dayRoutine with producers/consumers
+    //Todo: fill day_routine with producers/consumers
+    day_routine.set_morning_results_consumer([](DayRoutine::Results const &){});
+    day_routine.set_inventory_distribution_consumer([](DayRoutine::Results const &){});
+    day_routine.set_inventory_distribution_producer([](const Day &){ return DayRoutine::Results{}; });
 }
 
 void Gameplay::start(){

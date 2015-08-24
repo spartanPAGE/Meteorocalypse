@@ -1,6 +1,6 @@
 #pragma once
 #include "day.hpp"
-#include "charactersmanager.hpp"
+#include "characters/charactersmanager.hpp"
 
 class DaysManager{
 public:

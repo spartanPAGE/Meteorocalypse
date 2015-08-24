@@ -1,5 +1,4 @@
 #include "gameplay.hpp"
-#include "charactersmanager.hpp"
 
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"

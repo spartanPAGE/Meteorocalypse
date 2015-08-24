@@ -1,5 +1,5 @@
 #pragma once
-#include "character.hpp"
+#include "characters/character.hpp"
 #include "DefaultTree.hpp"
 
 namespace TSIMapper{

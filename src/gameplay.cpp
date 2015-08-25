@@ -1,7 +1,7 @@
 #include "gameplay.hpp"
 
 Gameplay::Gameplay():
-    characters_manager(CharactersLoader()),
+    characters_manager(create_characters_manager(CharactersLoader())),
     days_manager(characters_manager)
 {
     //Todo: fill day_routine with producers/consumers

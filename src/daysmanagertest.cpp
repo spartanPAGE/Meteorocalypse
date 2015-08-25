@@ -8,7 +8,7 @@ using namespace std;
 SCENARIO("Day incrementation", "[DaysManager]"){
     GIVEN("New instance of DaysManager"){
         CharactersLoader characters_loader;
-        CharactersManager characters_manager(move(characters_loader));
+        auto characters_manager = create_characters_manager(move(characters_loader));
         DaysManager days_manager(characters_manager);
         WHEN("Fetching day for the first time"){
             auto day1 = days_manager.fetch_next();

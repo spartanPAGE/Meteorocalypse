@@ -42,6 +42,10 @@ public:
     void for_exact(const ObjectName &name, std::function<void(const Object &)> func) const{
         func(objects.at(name));
     }
+
+    bool exists(const ObjectName &name) const{
+        return objects.count(name);
+    }
 private:
     ObjectsLoader objects_loader;
     LoadingFunc loading_func;

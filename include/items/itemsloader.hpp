@@ -1,6 +1,6 @@
 #pragma once
 
-#include "objectloader.hpp"
+#include "objects/objectsloader.hpp"
 #include "item.hpp"
 
 namespace ItemsLoaderInfo{

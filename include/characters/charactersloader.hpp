@@ -1,6 +1,6 @@
 #pragma once
 
-#include "objectloader.hpp"
+#include "objects/objectsloader.hpp"
 #include "character.hpp"
 
 namespace CharactersLoaderInfo{

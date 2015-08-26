@@ -3,7 +3,7 @@
 #include "tsiloader.hpp"
 
 namespace ItemsLoaderInfo{
-    char dir[] = "characters/";
+    char dir[] = "items/";
     char list_file[] = "list.txt";
     char ext[] = ".tsinfo";
 }

@@ -1,6 +1,6 @@
 #include "Catch.hpp"
 
-#include "daysmanager.hpp"
+#include "days/daysmanager.hpp"
 
 #include <utility>
 using namespace std;

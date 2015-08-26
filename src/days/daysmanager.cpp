@@ -1,4 +1,4 @@
-#include "daysmanager.hpp"
+#include "days/daysmanager.hpp"
 
 DaysManager::DaysManager(CharactersManager &cm):
     characters_manager(cm){}

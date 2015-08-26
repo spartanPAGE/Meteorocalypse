@@ -1,6 +1,6 @@
 #pragma once
-#include "daysmanager.hpp"
-#include "dayroutine.hpp"
+#include "days/daysmanager.hpp"
+#include "days/dayroutine.hpp"
 #include "characters/charactersmanager.hpp"
 
 class Gameplay{

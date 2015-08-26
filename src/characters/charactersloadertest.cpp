@@ -24,10 +24,10 @@ SCENARIO("Can load characters", "[CharactersLoader]"){
                             REQUIRE(characters.size() == 2);
                         }
                         WHEN("Checking first character (named Tomasz)"){
-                            //auto &tomasz = characters.front();
+                            auto &tomasz = characters.front();
                             THEN("Tomasz should match the .tsinfo representation"){
-                                //REQUIRE(tomasz.name == "Tomasz");
-                                //REQUIRE(tomasz.personality == Character::Personality::FRIENDLY);
+                                REQUIRE(tomasz.name == "Tomasz");
+                                REQUIRE(tomasz.personality == Character::Personality::FRIENDLY);
                             }
                         }
                     }

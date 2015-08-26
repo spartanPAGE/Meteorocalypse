@@ -1,5 +1,5 @@
 #pragma once
-#include "days/daysmanager.hpp"
+#include "days/DaysGenerator.hpp"
 #include "days/dayroutine.hpp"
 #include "characters/charactersmanager.hpp"
 
@@ -18,6 +18,6 @@ private:
     bool running = true;
 
     CharactersManager characters_manager;
-    DaysManager days_manager;
+    DaysGenerator days_manager;
     DayRoutine day_routine;
 };

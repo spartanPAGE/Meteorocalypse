@@ -2,9 +2,9 @@
 #include "day.hpp"
 #include "characters/charactersmanager.hpp"
 
-class DaysManager{
+class DaysGenerator{
 public:
-    DaysManager(CharactersManager &);
+    DaysGenerator(CharactersManager &);
 public:
     Day fetch_next();
 private:

@@ -1,0 +1,49 @@
+treestructinfo "2.0" name "rats"
+  attr desc "Rats in your bunker!"
+
+  node Options
+    node Items
+      node Axe
+        attr item "axe"
+        node Possibilities
+          node 1
+            attr chance "0.5"
+            attr state "good"
+          end node
+          node 2
+            attr chance "0.5"
+            attr state "good"
+            attr post event "find lost food ration"
+          end node
+        end node
+      end node
+
+      node Rifle
+        attr item "rifle"
+        node Possibilities
+          node 1
+            attr chance "0.8"
+            attr state "good"
+          end node
+          node 2
+            attr chance "0.2"
+            attr state "bad"
+            attr post self action "spoil"
+          end node
+        end node
+      end node
+
+      node Rat Poison
+        attr item "rat poison"
+        node Possibilities
+          node 1
+            attr chance "1"
+            attr state "good"
+            attr post self action "remove"
+          end node
+        end node
+      end node
+
+    end node
+  end node
+end tree

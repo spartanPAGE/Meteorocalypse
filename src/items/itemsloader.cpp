@@ -1,5 +1,4 @@
 #include "items/itemsloader.hpp"
-#include "tsimapper.hpp"
 #include "tsiloader.hpp"
 
 namespace ItemsLoaderInfo{

@@ -1,6 +1,6 @@
 #include "characters/charactersloader.hpp"
-#include "tsimapper.hpp"
-#include "tsiloader.hpp"
+#include "mapper/tsimapper.hpp"
+#include "mapper/tsiloader.hpp"
 
 namespace CharactersLoaderInfo{
     char dir[] = "characters/";

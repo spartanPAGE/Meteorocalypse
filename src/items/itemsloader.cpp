@@ -1,5 +1,5 @@
 #include "items/itemsloader.hpp"
-#include "tsiloader.hpp"
+#include "mapper/tsiloader.hpp"
 
 namespace ItemsLoaderInfo{
     char dir[] = "items/";

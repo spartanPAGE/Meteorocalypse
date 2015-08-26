@@ -1,4 +1,4 @@
-#include "tsimapper.hpp"
+#include "mapper/tsimapper.hpp"
 #include "CandiedTree.hpp"
 using namespace std;
 using TreeStructInfo::makeCandied;

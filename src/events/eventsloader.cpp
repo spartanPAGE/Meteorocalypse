@@ -12,9 +12,5 @@ Event load_event(const ListLoader::Path &path){
 }
 
 EventsLoader::Objects load_events(EventsLoader &events_loader){
-    if(!events_loader.test_paths())
-        throw std::runtime_error("EventsLoader::test_paths() failed");
-    if(!events_loader.load_list())
-        throw std::runtime_error("EventsLoader::load_list() failed");
-    return events_loader.load(load_event);
+    return load_objects(events_loader, load_event);
 }

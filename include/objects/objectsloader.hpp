@@ -59,3 +59,13 @@ private:
     const Extension ext = ext_val;
     ListLoader list_loader;
 };
+
+template<typename Loader, typename LoadingFunc>
+typename Loader::Objects load_objects(Loader &loader, LoadingFunc func){
+    std::string name = typeid(loader).name();
+    if(!loader.test_paths())
+        throw std::runtime_error(name + "::test_paths() failed");
+    if(!loader.load_list())
+        throw std::runtime_error(name + "::load_list() failed");
+    return loader.load(func);
+}

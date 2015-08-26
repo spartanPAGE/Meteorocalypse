@@ -13,9 +13,5 @@ Character load_character(const ListLoader::Path &path){
 }
 
 CharactersLoader::Objects load_characters(CharactersLoader &characters_loader){
-    if(!characters_loader.test_paths())
-        throw std::runtime_error("CharactersLoader::test_paths() failed");
-    if(!characters_loader.load_list())
-        throw std::runtime_error("CharactersLoader::load_list() failed");
-    return characters_loader.load(load_character);
+    return load_objects(characters_loader, load_character);
 }

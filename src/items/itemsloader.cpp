@@ -12,9 +12,5 @@ Item load_item(const ListLoader::Path &path){
 }
 
 ItemsLoader::Objects load_items(ItemsLoader &items_loader){
-    if(!items_loader.test_paths())
-        throw std::runtime_error("ItemsLoader::test_paths() failed");
-    if(!items_loader.load_list())
-        throw std::runtime_error("ItemsLoader::load_list() failed");
-    return items_loader.load(load_item);
+    return load_objects(items_loader, load_item);
 }

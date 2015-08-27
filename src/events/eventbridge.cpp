@@ -1,5 +1,11 @@
 #include "events/eventbridge.hpp"
 
+EventOptionsItemsSingleBridge::EventOptionsItemsSingleBridge(Node &items, const Name &name):
+    item(items.findNode(name)){}
+
+const auto &EventOptionsItemsSingleBridge::name() const
+{ return item.name; }
+
 EventOptionsItemsBridge::EventOptionsItemsBridge(Node &options):
     items(options.findNode("Items")){}
 
@@ -7,6 +13,22 @@ auto &EventOptionsItemsBridge::all()
 { return items.nodes; }
 const auto &EventOptionsItemsBridge::all() const
 { return items.nodes; }
+
+auto EventOptionsItemsBridge::count() const
+{ return items.nodes.size(); }
+
+auto EventOptionsItemsBridge::at(const ItemName &name)
+{ return EventOptionsItemsSingleBridge(items, name); }
+const auto EventOptionsItemsBridge::at(const ItemName &name) const
+{ return EventOptionsItemsSingleBridge(items, name); }
+
+bool EventOptionsItemsBridge::exists(const ItemName &name) const
+{ return items.nodes.count(name); }
+
+auto EventOptionsItemsBridge::the(const ItemName &name)
+{ return at(name); }
+const auto EventOptionsItemsBridge::the(const ItemName &name) const
+{ return at(name); }
 
 
 EventOptionsBridge::EventOptionsBridge(Event &event):

@@ -2,9 +2,18 @@ treestructinfo "2.0" name "rats"
   attr desc "Rats in your bunker!"
 
   node Options
+    node Nothing selected
+      node Possibilities
+        node 1
+          attr chance "1"
+          attr state "bad"
+          attr post event "rats have eaten food ration"
+        end node
+      end node
+    end node
+
     node Items
       node Axe
-        attr item "axe"
         node Possibilities
           node 1
             attr chance "0.5"
@@ -19,7 +28,6 @@ treestructinfo "2.0" name "rats"
       end node
 
       node Rifle
-        attr item "rifle"
         node Possibilities
           node 1
             attr chance "0.8"
@@ -33,8 +41,7 @@ treestructinfo "2.0" name "rats"
         end node
       end node
 
-      node Rat Poison
-        attr item "rat poison"
+      node Rat poison
         node Possibilities
           node 1
             attr chance "1"

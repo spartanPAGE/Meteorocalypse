@@ -1,6 +1,8 @@
 #include "events/eventbridge.hpp"
 #include "CandiedTree.hpp"
-#include <cassert>
+#include <random>
+
+using namespace std;
 
 EventOptionsPossibilitiesBridge::EventOptionsPossibilitiesBridge(Node &base):
     possibilities(base.findNode("Possibilities")){}
@@ -13,6 +15,11 @@ EventOptionsPossibilitiesBridge::collect_chances() const{
         chances.push_back(possibility.readReal("chance", 0.0));
     }
     return chances;
+}
+
+EventOptionsPossibilitiesBridge::Number
+EventOptionsPossibilitiesBridge::random() const{
+    return random(collect_chances());
 }
 
 EventOptionsItemsSingleBridge::EventOptionsItemsSingleBridge(Node &items, const Name &name):

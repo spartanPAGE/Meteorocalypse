@@ -10,11 +10,19 @@ class EventOptionsPossibilitiesBridge{
 public:
     using PossibilitiesNode = Node;
     using Chance = double;
+    using Number = unsigned;
     using ChancesList = std::list<Chance>;
 public:
     EventOptionsPossibilitiesBridge(Node &base);
 public:
     ChancesList collect_chances() const;
+    template<typename ChancesListType>
+    Number random(const ChancesListType &chances) const{
+        default_random_engine generator;
+        discrete_distribution<Number> distribution(begin(chances), end(chances));
+        return distribution(generator);
+    }
+    Number random() const;
 private:
     PossibilitiesNode &possibilities;
 };

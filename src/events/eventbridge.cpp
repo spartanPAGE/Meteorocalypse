@@ -1,10 +1,30 @@
 #include "events/eventbridge.hpp"
+#include "CandiedTree.hpp"
+#include <cassert>
+
+EventOptionsPossibilitiesBridge::EventOptionsPossibilitiesBridge(Node &base):
+    possibilities(base.findNode("Possibilities")){}
+
+EventOptionsPossibilitiesBridge::ChancesList 
+EventOptionsPossibilitiesBridge::collect_chances() const{
+    ChancesList chances;
+    for(const auto &possibilityPair : possibilities.nodes){
+        const auto &possibility = TreeStructInfo::makeCandied(possibilityPair.second);
+        chances.push_back(possibility.readReal("chance", 0.0));
+    }
+    return chances;
+}
 
 EventOptionsItemsSingleBridge::EventOptionsItemsSingleBridge(Node &items, const Name &name):
     item(items.findNode(name)){}
 
 const auto &EventOptionsItemsSingleBridge::name() const
 { return item.name; }
+
+EventOptionsPossibilitiesBridge EventOptionsItemsSingleBridge::possibilities()
+{ return EventOptionsPossibilitiesBridge(item); }
+const EventOptionsPossibilitiesBridge EventOptionsItemsSingleBridge::possibilities() const
+{ return EventOptionsPossibilitiesBridge(item); }
 
 EventOptionsItemsBridge::EventOptionsItemsBridge(Node &options):
     items(options.findNode("Items")){}
@@ -17,17 +37,17 @@ const auto &EventOptionsItemsBridge::all() const
 auto EventOptionsItemsBridge::count() const
 { return items.nodes.size(); }
 
-auto EventOptionsItemsBridge::at(const ItemName &name)
+EventOptionsItemsSingleBridge EventOptionsItemsBridge::at(const ItemName &name)
 { return EventOptionsItemsSingleBridge(items, name); }
-const auto EventOptionsItemsBridge::at(const ItemName &name) const
+const EventOptionsItemsSingleBridge EventOptionsItemsBridge::at(const ItemName &name) const
 { return EventOptionsItemsSingleBridge(items, name); }
 
 bool EventOptionsItemsBridge::exists(const ItemName &name) const
-{ return items.nodes.count(name); }
+{ return items.nodes.count(name) != 0; }
 
-auto EventOptionsItemsBridge::the(const ItemName &name)
+EventOptionsItemsSingleBridge EventOptionsItemsBridge::the(const ItemName &name)
 { return at(name); }
-const auto EventOptionsItemsBridge::the(const ItemName &name) const
+const EventOptionsItemsSingleBridge EventOptionsItemsBridge::the(const ItemName &name) const
 { return at(name); }
 
 

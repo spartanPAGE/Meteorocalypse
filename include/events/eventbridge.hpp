@@ -2,18 +2,34 @@
 
 #include "event.hpp"
 #include <functional>
+#include <list>
 
 using Node = TreeStructInfo::Default::Node;
 
+class EventOptionsPossibilitiesBridge{
+public:
+    using PossibilitiesNode = Node;
+    using Chance = double;
+    using ChancesList = std::list<Chance>;
+public:
+    EventOptionsPossibilitiesBridge(Node &base);
+public:
+    ChancesList collect_chances() const;
+private:
+    PossibilitiesNode &possibilities;
+};
+
 class EventOptionsItemsSingleBridge{
-    using Item = Node;
-    using Name = Item::name_type;
+    using ItemNode = Node;
+    using Name = ItemNode::name_type;
 public:
     EventOptionsItemsSingleBridge(Node &items, const Name &);
 public:
     const auto &name() const;
+    EventOptionsPossibilitiesBridge possibilities();
+    const EventOptionsPossibilitiesBridge possibilities() const;
 private:
-    Item &item;
+    ItemNode &item;
 };
 
 class EventOptionsItemsBridge{
@@ -25,12 +41,13 @@ public:
     auto &all();
     const auto &all() const;
     auto count() const;
-    auto at(const ItemName &);
-    const auto at(const ItemName &) const;
+
+    EventOptionsItemsSingleBridge at(const ItemName &);
+    const EventOptionsItemsSingleBridge at(const ItemName &) const;
     bool exists(const ItemName &) const;
 
-    auto the(const ItemName &);
-    const auto the(const ItemName &) const;
+    EventOptionsItemsSingleBridge the(const ItemName &);
+    const EventOptionsItemsSingleBridge the(const ItemName &) const;
 private:
     ItemsNode &items;
 };

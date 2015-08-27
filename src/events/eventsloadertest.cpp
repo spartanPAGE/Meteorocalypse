@@ -3,6 +3,9 @@
 #include "events/eventbridge.hpp"
 #include "events/eventsloader.hpp"
 
+#include <algorithm>
+using namespace std;
+
 SCENARIO("Testing events loading", "[EventsLoader]"){
     GIVEN("list of events loaded with EventsLoader"){
         EventsLoader loader("resources/test/", "../Meteorocalypse/resources/test/");
@@ -30,6 +33,12 @@ SCENARIO("Testing events loading", "[EventsLoader]"){
                     REQUIRE(event.options().items().exists("Rifle"));
                     REQUIRE(event.options().items().exists("Rat poison"));
                 }
+            }
+            WHEN("Validating chance of possibilities in Axe item"){
+                auto chances = event.options().items().the("Axe").possibilities().collect_chances();
+                bool found_zero = find(begin(chances), end(chances), 0.0) != end(chances);
+                REQUIRE_FALSE(chances.empty());
+                REQUIRE_FALSE(found_zero);
             }
         }
     }

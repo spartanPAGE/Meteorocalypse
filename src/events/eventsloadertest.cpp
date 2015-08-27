@@ -19,9 +19,16 @@ SCENARIO("Testing events loading", "[EventsLoader]"){
                     REQUIRE(event.has_options());
                 }
             }
-            WHEN("Validating existenc of options->items"){
+            WHEN("Validating existence of options->items"){
                 THEN("options->items are present"){
                     REQUIRE(event.options().has_items());
+                }
+            }
+            WHEN("Validating items"){
+                THEN("options->items->{Axe, Rifle, Rat poison} are present"){
+                    REQUIRE(event.options().items().exists("Axe"));
+                    REQUIRE(event.options().items().exists("Rifle"));
+                    REQUIRE(event.options().items().exists("Rat poison"));
                 }
             }
         }

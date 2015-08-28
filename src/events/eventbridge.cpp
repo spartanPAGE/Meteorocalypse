@@ -21,7 +21,12 @@ EventOptionsPossibilitiesSingleBridge::chance() const{
     return sweet_possibility.readReal("chance", 0.0);
 }
 
-EventOptionsPossibilitiesSingleBridge::Value
+EventOptionsPossibilitiesSingleBridge::Value &
+EventOptionsPossibilitiesSingleBridge::state(){
+    auto sweet_possibility = TreeStructInfo::makeCandied(possibility);
+    return sweet_possibility.readValue("state");
+}
+const EventOptionsPossibilitiesSingleBridge::Value &
 EventOptionsPossibilitiesSingleBridge::state() const{
     auto sweet_possibility = TreeStructInfo::makeCandied(possibility);
     return sweet_possibility.readValue("state");

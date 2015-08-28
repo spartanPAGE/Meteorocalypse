@@ -19,7 +19,9 @@ public:
     const Name &name() const;
 
     Chance chance() const;
-    Value state() const;
+
+    Value &state();
+    const Value &state() const;
 private:
     PossibilityNode possibility;
 };

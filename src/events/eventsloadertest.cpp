@@ -40,6 +40,14 @@ SCENARIO("Testing events loading", "[EventsLoader]"){
                 REQUIRE_FALSE(chances.empty());
                 REQUIRE_FALSE(found_zero);
             }
+            WHEN("Validating randomly picked possibility"){
+                auto possibility = event.options().items().the("Axe").possibilities().random();
+                THEN("Possibility is not empty"){
+                    REQUIRE(possibility.name() != "");
+                    REQUIRE(possibility.state() != "");
+                    REQUIRE(possibility.chance() != 0.0);
+                }
+            }
         }
     }
 }

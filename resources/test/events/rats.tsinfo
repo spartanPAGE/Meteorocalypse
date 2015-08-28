@@ -16,11 +16,11 @@ treestructinfo "2.0" name "rats"
       node Axe
         node Possibilities
           node 1
-            attr chance "0.5"
+            attr chance "5"
             attr state "good"
           end node
           node 2
-            attr chance "0.5"
+            attr chance "5"
             attr state "good"
             attr post event "find lost food ration"
           end node
@@ -30,11 +30,11 @@ treestructinfo "2.0" name "rats"
       node Rifle
         node Possibilities
           node 1
-            attr chance "0.8"
+            attr chance "8"
             attr state "good"
           end node
           node 2
-            attr chance "0.2"
+            attr chance "2"
             attr state "bad"
             attr post self action "spoil"
           end node

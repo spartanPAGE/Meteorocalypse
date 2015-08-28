@@ -4,6 +4,29 @@
 
 using namespace std;
 
+EventOptionsPossibilitiesSingleBridge
+::EventOptionsPossibilitiesSingleBridge(Node &possibilities, const Name &name):
+    possibility(possibilities.findNode(name)){}
+
+EventOptionsPossibilitiesSingleBridge::Name &
+EventOptionsPossibilitiesSingleBridge::name()
+{ return possibility.name; }
+const EventOptionsPossibilitiesSingleBridge::Name &
+EventOptionsPossibilitiesSingleBridge::name() const
+{ return possibility.name; }
+
+EventOptionsPossibilitiesSingleBridge::Chance
+EventOptionsPossibilitiesSingleBridge::chance() const{
+    auto sweet_possibility = TreeStructInfo::makeCandied(possibility);
+    return sweet_possibility.readReal("chance", 0.0);
+}
+
+EventOptionsPossibilitiesSingleBridge::Value
+EventOptionsPossibilitiesSingleBridge::state() const{
+    auto sweet_possibility = TreeStructInfo::makeCandied(possibility);
+    return sweet_possibility.readValue("state");
+}
+
 EventOptionsPossibilitiesBridge::EventOptionsPossibilitiesBridge(Node &base):
     possibilities(base.findNode("Possibilities")){}
 
@@ -17,7 +40,7 @@ EventOptionsPossibilitiesBridge::collect_chances() const{
     return chances;
 }
 
-EventOptionsPossibilitiesBridge::Number
+EventOptionsPossibilitiesSingleBridge
 EventOptionsPossibilitiesBridge::random() const{
     return random(collect_chances());
 }

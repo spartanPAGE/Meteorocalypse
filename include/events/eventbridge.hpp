@@ -6,10 +6,28 @@
 
 using Node = TreeStructInfo::Default::Node;
 
+class EventOptionsPossibilitiesSingleBridge{
+public:
+    using PossibilityNode = Node;
+    using Name = PossibilityNode::name_type;
+    using Value = PossibilityNode::attribute_type::value_type;
+    using Chance = double;
+public:
+    EventOptionsPossibilitiesSingleBridge(Node &possibilities, const Name &name);
+public:
+    Name &name();
+    const Name &name() const;
+
+    Chance chance() const;
+    Value state() const;
+private:
+    PossibilityNode possibility;
+};
+
 class EventOptionsPossibilitiesBridge{
 public:
     using PossibilitiesNode = Node;
-    using Chance = double;
+    using Chance = EventOptionsPossibilitiesSingleBridge::Chance;
     using Number = unsigned;
     using ChancesList = std::list<Chance>;
 public:
@@ -17,12 +35,15 @@ public:
 public:
     ChancesList collect_chances() const;
     template<typename ChancesListType>
-    Number random(const ChancesListType &chances) const{
+    EventOptionsPossibilitiesSingleBridge random(const ChancesListType &chances) const{
         default_random_engine generator;
         discrete_distribution<Number> distribution(begin(chances), end(chances));
-        return distribution(generator);
+        return EventOptionsPossibilitiesSingleBridge(
+            possibilities,
+            std::to_string(distribution(generator)+1)
+        );
     }
-    Number random() const;
+    EventOptionsPossibilitiesSingleBridge random() const;
 private:
     PossibilitiesNode &possibilities;
 };

@@ -1,3 +1,4 @@
 treestructinfo "2.0" name "radio"
   attr state "WORKING"
+  attr is spoilable "Yes"
 end tree

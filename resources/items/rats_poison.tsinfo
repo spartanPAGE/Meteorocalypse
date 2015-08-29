@@ -1,0 +1,3 @@
+treestructinfo "2.0" name "Rats poison"
+  attr is stackable "Yes"
+end tree

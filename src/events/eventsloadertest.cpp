@@ -1,6 +1,6 @@
 #include "Catch.hpp"
 #include "events/event.hpp"
-#include "events/eventbridge.hpp"
+#include "events/eventProxy.hpp"
 #include "events/eventsloader.hpp"
 
 #include <algorithm>
@@ -15,8 +15,8 @@ SCENARIO("Testing events loading", "[EventsLoader]"){
                 REQUIRE(!events.empty());
             }
         }
-        GIVEN("New event bridge for fancy nodes handling"){
-            EventBridge event(events.front());
+        GIVEN("New event Proxy for fancy nodes handling"){
+            EventProxy event(events.front());
             WHEN("Validating existence of options"){
                 THEN("Options are present"){
                     REQUIRE(event.has_options());

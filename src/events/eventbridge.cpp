@@ -1,42 +1,42 @@
-#include "events/eventbridge.hpp"
+#include "events/eventProxy.hpp"
 #include "CandiedTree.hpp"
 #include <random>
 
 using namespace std;
 
-EventOptionsPossibilitiesSingleBridge
-::EventOptionsPossibilitiesSingleBridge(Node &possibilities, const Name &name):
+EventOptionsPossibilitiesSingleProxy
+::EventOptionsPossibilitiesSingleProxy(Node &possibilities, const Name &name):
     possibility(possibilities.findNode(name)){}
 
-EventOptionsPossibilitiesSingleBridge::Name &
-EventOptionsPossibilitiesSingleBridge::name()
+EventOptionsPossibilitiesSingleProxy::Name &
+EventOptionsPossibilitiesSingleProxy::name()
 { return possibility.name; }
-const EventOptionsPossibilitiesSingleBridge::Name &
-EventOptionsPossibilitiesSingleBridge::name() const
+const EventOptionsPossibilitiesSingleProxy::Name &
+EventOptionsPossibilitiesSingleProxy::name() const
 { return possibility.name; }
 
-EventOptionsPossibilitiesSingleBridge::Chance
-EventOptionsPossibilitiesSingleBridge::chance() const{
+EventOptionsPossibilitiesSingleProxy::Chance
+EventOptionsPossibilitiesSingleProxy::chance() const{
     auto sweet_possibility = TreeStructInfo::makeCandied(possibility);
     return sweet_possibility.readReal("chance", 0.0);
 }
 
-EventOptionsPossibilitiesSingleBridge::Value &
-EventOptionsPossibilitiesSingleBridge::state(){
+EventOptionsPossibilitiesSingleProxy::Value &
+EventOptionsPossibilitiesSingleProxy::state(){
     auto sweet_possibility = TreeStructInfo::makeCandied(possibility);
     return sweet_possibility.readValue("state");
 }
-const EventOptionsPossibilitiesSingleBridge::Value &
-EventOptionsPossibilitiesSingleBridge::state() const{
+const EventOptionsPossibilitiesSingleProxy::Value &
+EventOptionsPossibilitiesSingleProxy::state() const{
     auto sweet_possibility = TreeStructInfo::makeCandied(possibility);
     return sweet_possibility.readValue("state");
 }
 
-EventOptionsPossibilitiesBridge::EventOptionsPossibilitiesBridge(Node &base):
+EventOptionsPossibilitiesProxy::EventOptionsPossibilitiesProxy(Node &base):
     possibilities(base.findNode("Possibilities")){}
 
-EventOptionsPossibilitiesBridge::ChancesList 
-EventOptionsPossibilitiesBridge::collect_chances() const{
+EventOptionsPossibilitiesProxy::ChancesList 
+EventOptionsPossibilitiesProxy::collect_chances() const{
     ChancesList chances;
     for(const auto &possibilityPair : possibilities.nodes){
         const auto &possibility = TreeStructInfo::makeCandied(possibilityPair.second);
@@ -45,64 +45,64 @@ EventOptionsPossibilitiesBridge::collect_chances() const{
     return chances;
 }
 
-EventOptionsPossibilitiesSingleBridge
-EventOptionsPossibilitiesBridge::random() const{
+EventOptionsPossibilitiesSingleProxy
+EventOptionsPossibilitiesProxy::random() const{
     return random(collect_chances());
 }
 
-EventOptionsItemsSingleBridge::EventOptionsItemsSingleBridge(Node &items, const Name &name):
+EventOptionsItemsSingleProxy::EventOptionsItemsSingleProxy(Node &items, const Name &name):
     item(items.findNode(name)){}
 
-const auto &EventOptionsItemsSingleBridge::name() const
+const auto &EventOptionsItemsSingleProxy::name() const
 { return item.name; }
 
-EventOptionsPossibilitiesBridge EventOptionsItemsSingleBridge::possibilities()
-{ return EventOptionsPossibilitiesBridge(item); }
-const EventOptionsPossibilitiesBridge EventOptionsItemsSingleBridge::possibilities() const
-{ return EventOptionsPossibilitiesBridge(item); }
+EventOptionsPossibilitiesProxy EventOptionsItemsSingleProxy::possibilities()
+{ return EventOptionsPossibilitiesProxy(item); }
+const EventOptionsPossibilitiesProxy EventOptionsItemsSingleProxy::possibilities() const
+{ return EventOptionsPossibilitiesProxy(item); }
 
-EventOptionsItemsBridge::EventOptionsItemsBridge(Node &options):
+EventOptionsItemsProxy::EventOptionsItemsProxy(Node &options):
     items(options.findNode("Items")){}
 
-auto &EventOptionsItemsBridge::all()
+auto &EventOptionsItemsProxy::all()
 { return items.nodes; }
-const auto &EventOptionsItemsBridge::all() const
+const auto &EventOptionsItemsProxy::all() const
 { return items.nodes; }
 
-auto EventOptionsItemsBridge::count() const
+auto EventOptionsItemsProxy::count() const
 { return items.nodes.size(); }
 
-EventOptionsItemsSingleBridge EventOptionsItemsBridge::at(const ItemName &name)
-{ return EventOptionsItemsSingleBridge(items, name); }
-const EventOptionsItemsSingleBridge EventOptionsItemsBridge::at(const ItemName &name) const
-{ return EventOptionsItemsSingleBridge(items, name); }
+EventOptionsItemsSingleProxy EventOptionsItemsProxy::at(const ItemName &name)
+{ return EventOptionsItemsSingleProxy(items, name); }
+const EventOptionsItemsSingleProxy EventOptionsItemsProxy::at(const ItemName &name) const
+{ return EventOptionsItemsSingleProxy(items, name); }
 
-bool EventOptionsItemsBridge::exists(const ItemName &name) const
+bool EventOptionsItemsProxy::exists(const ItemName &name) const
 { return items.nodes.count(name) != 0; }
 
-EventOptionsItemsSingleBridge EventOptionsItemsBridge::the(const ItemName &name)
+EventOptionsItemsSingleProxy EventOptionsItemsProxy::the(const ItemName &name)
 { return at(name); }
-const EventOptionsItemsSingleBridge EventOptionsItemsBridge::the(const ItemName &name) const
+const EventOptionsItemsSingleProxy EventOptionsItemsProxy::the(const ItemName &name) const
 { return at(name); }
 
 
-EventOptionsBridge::EventOptionsBridge(Event &event):
+EventOptionsProxy::EventOptionsProxy(Event &event):
     options(event.findNode("Options")),
-    items_bridge(options){}
+    items_Proxy(options){}
 
-bool EventOptionsBridge::has_items() const{ return !items().all().empty(); }
+bool EventOptionsProxy::has_items() const{ return !items().all().empty(); }
 
-EventOptionsItemsBridge &EventOptionsBridge::items(){ return items_bridge; }
-const EventOptionsItemsBridge &EventOptionsBridge::items() const{ return items_bridge; }
+EventOptionsItemsProxy &EventOptionsProxy::items(){ return items_Proxy; }
+const EventOptionsItemsProxy &EventOptionsProxy::items() const{ return items_Proxy; }
 
-auto &EventOptionsBridge::all(){ return options.nodes; }
-const auto &EventOptionsBridge::all() const{ return options.nodes; }
+auto &EventOptionsProxy::all(){ return options.nodes; }
+const auto &EventOptionsProxy::all() const{ return options.nodes; }
 
-EventBridge::EventBridge(Event &event):
+EventProxy::EventProxy(Event &event):
     event(event),
-    options_bridge(event){}
+    options_Proxy(event){}
 
-bool EventBridge::has_options() const{ return !options().all().empty(); }
+bool EventProxy::has_options() const{ return !options().all().empty(); }
 
-EventOptionsBridge &EventBridge::options(){ return options_bridge; }
-const EventOptionsBridge &EventBridge::options() const{ return options_bridge; }
+EventOptionsProxy &EventProxy::options(){ return options_Proxy; }
+const EventOptionsProxy &EventProxy::options() const{ return options_Proxy; }

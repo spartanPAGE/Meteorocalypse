@@ -6,14 +6,14 @@
 
 using Node = TreeStructInfo::Default::Node;
 
-class EventOptionsPossibilitiesSingleBridge{
+class EventOptionsPossibilitiesSingleProxy{
 public:
     using PossibilityNode = Node;
     using Name = PossibilityNode::name_type;
     using Value = PossibilityNode::attribute_type::value_type;
     using Chance = double;
 public:
-    EventOptionsPossibilitiesSingleBridge(Node &possibilities, const Name &name);
+    EventOptionsPossibilitiesSingleProxy(Node &possibilities, const Name &name);
 public:
     Name &name();
     const Name &name() const;
@@ -26,90 +26,90 @@ private:
     PossibilityNode possibility;
 };
 
-class EventOptionsPossibilitiesBridge{
+class EventOptionsPossibilitiesProxy{
 public:
     using PossibilitiesNode = Node;
-    using Chance = EventOptionsPossibilitiesSingleBridge::Chance;
+    using Chance = EventOptionsPossibilitiesSingleProxy::Chance;
     using Number = unsigned;
     using ChancesList = std::list<Chance>;
 public:
-    EventOptionsPossibilitiesBridge(Node &base);
+    EventOptionsPossibilitiesProxy(Node &base);
 public:
     ChancesList collect_chances() const;
     template<typename ChancesListType>
-    EventOptionsPossibilitiesSingleBridge random(const ChancesListType &chances) const{
+    EventOptionsPossibilitiesSingleProxy random(const ChancesListType &chances) const{
         default_random_engine generator;
         discrete_distribution<Number> distribution(begin(chances), end(chances));
-        return EventOptionsPossibilitiesSingleBridge(
+        return EventOptionsPossibilitiesSingleProxy(
             possibilities,
             std::to_string(distribution(generator)+1)
         );
     }
-    EventOptionsPossibilitiesSingleBridge random() const;
+    EventOptionsPossibilitiesSingleProxy random() const;
 private:
     PossibilitiesNode &possibilities;
 };
 
-class EventOptionsItemsSingleBridge{
+class EventOptionsItemsSingleProxy{
     using ItemNode = Node;
     using Name = ItemNode::name_type;
 public:
-    EventOptionsItemsSingleBridge(Node &items, const Name &);
+    EventOptionsItemsSingleProxy(Node &items, const Name &);
 public:
     const auto &name() const;
-    EventOptionsPossibilitiesBridge possibilities();
-    const EventOptionsPossibilitiesBridge possibilities() const;
+    EventOptionsPossibilitiesProxy possibilities();
+    const EventOptionsPossibilitiesProxy possibilities() const;
 private:
     ItemNode &item;
 };
 
-class EventOptionsItemsBridge{
+class EventOptionsItemsProxy{
     using ItemsNode = Node;
     using ItemName = Node::name_type;
 public:
-    EventOptionsItemsBridge(Node &options);
+    EventOptionsItemsProxy(Node &options);
 public:
     auto &all();
     const auto &all() const;
     auto count() const;
 
-    EventOptionsItemsSingleBridge at(const ItemName &);
-    const EventOptionsItemsSingleBridge at(const ItemName &) const;
+    EventOptionsItemsSingleProxy at(const ItemName &);
+    const EventOptionsItemsSingleProxy at(const ItemName &) const;
     bool exists(const ItemName &) const;
 
-    EventOptionsItemsSingleBridge the(const ItemName &);
-    const EventOptionsItemsSingleBridge the(const ItemName &) const;
+    EventOptionsItemsSingleProxy the(const ItemName &);
+    const EventOptionsItemsSingleProxy the(const ItemName &) const;
 private:
     ItemsNode &items;
 };
 
-class EventOptionsBridge{
+class EventOptionsProxy{
 public:
     using OptionsNode = Node;
 public:
-    EventOptionsBridge(Event &event);
+    EventOptionsProxy(Event &event);
 public:
     bool has_items() const;
 
-    EventOptionsItemsBridge &items();
-    const EventOptionsItemsBridge &items() const;
+    EventOptionsItemsProxy &items();
+    const EventOptionsItemsProxy &items() const;
 
     auto &all();
     const auto &all() const;
 private:
     OptionsNode &options;
-    EventOptionsItemsBridge items_bridge;
+    EventOptionsItemsProxy items_Proxy;
 };
 
-class EventBridge{
+class EventProxy{
 public:
-    EventBridge(Event &event);
+    EventProxy(Event &event);
 public:
     bool has_options() const;
 
-    EventOptionsBridge &options();
-    const EventOptionsBridge &options() const;
+    EventOptionsProxy &options();
+    const EventOptionsProxy &options() const;
 private:
     Event &event;
-    EventOptionsBridge options_bridge;
+    EventOptionsProxy options_Proxy;
 };

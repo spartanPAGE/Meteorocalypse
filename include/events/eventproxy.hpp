@@ -65,12 +65,13 @@ private:
 
 class EventOptionsItemsProxy{
     using ItemsNode = Node;
+    using AllItemsMap = Node::nodes_map_type;
     using ItemName = Node::name_type;
 public:
     EventOptionsItemsProxy(Node &options);
 public:
-    auto &all();
-    const auto &all() const;
+    AllItemsMap &all();
+    const AllItemsMap &all() const;
     auto count() const;
 
     EventOptionsItemsSingleProxy at(const ItemName &);

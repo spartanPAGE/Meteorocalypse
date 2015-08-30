@@ -64,9 +64,9 @@ const EventOptionsPossibilitiesProxy EventOptionsItemsSingleProxy::possibilities
 EventOptionsItemsProxy::EventOptionsItemsProxy(Node &options):
     items(options.findNode("Items")){}
 
-auto &EventOptionsItemsProxy::all()
+EventOptionsItemsProxy::AllItemsMap &EventOptionsItemsProxy::all()
 { return items.nodes; }
-const auto &EventOptionsItemsProxy::all() const
+const EventOptionsItemsProxy::AllItemsMap &EventOptionsItemsProxy::all() const
 { return items.nodes; }
 
 auto EventOptionsItemsProxy::count() const

@@ -1,4 +1,4 @@
-treestructinfo "2.0" name "rats"
+treestructinfo "2.0" name "Rats"
   attr desc "Rats in your bunker!"
 
   node Options

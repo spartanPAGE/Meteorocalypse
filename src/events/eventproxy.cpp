@@ -88,21 +88,29 @@ const EventOptionsItemsSingleProxy EventOptionsItemsProxy::the(const ItemName &n
 
 EventOptionsProxy::EventOptionsProxy(Event &event):
     options(event.findNode("Options")),
-    items_Proxy(options){}
+    items_proxy(options){}
 
 bool EventOptionsProxy::has_items() const{ return !items().all().empty(); }
 
-EventOptionsItemsProxy &EventOptionsProxy::items(){ return items_Proxy; }
-const EventOptionsItemsProxy &EventOptionsProxy::items() const{ return items_Proxy; }
+EventOptionsItemsProxy &EventOptionsProxy::items(){ return items_proxy; }
+const EventOptionsItemsProxy &EventOptionsProxy::items() const{ return items_proxy; }
 
 auto &EventOptionsProxy::all(){ return options.nodes; }
 const auto &EventOptionsProxy::all() const{ return options.nodes; }
 
 EventProxy::EventProxy(Event &event):
     event(event),
-    options_Proxy(event){}
+    options_proxy(event){}
 
 bool EventProxy::has_options() const{ return !options().all().empty(); }
 
-EventOptionsProxy &EventProxy::options(){ return options_Proxy; }
-const EventOptionsProxy &EventProxy::options() const{ return options_Proxy; }
+EventOptionsProxy &EventProxy::options(){ return options_proxy; }
+const EventOptionsProxy &EventProxy::options() const{ return options_proxy; }
+
+EventProxy::EventOptionsSelectProxy EventProxy::select(){
+    return EventOptionsSelectProxy(*this);
+}
+
+const EventProxy::EventOptionsSelectProxy EventProxy::select() const{
+    return EventOptionsSelectProxy(const_cast<EventProxy &>(*this));
+}

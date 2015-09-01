@@ -1,8 +1,11 @@
 #pragma once
 
 #include "event.hpp"
-#include <functional>
+#include "items/itemsmanager.hpp"
+#include "characters/charactersmanager.hpp"
+#include "events/eventoptionsselectproxy.hpp"
 #include <list>
+#include <functional>
 
 using Node = TreeStructInfo::Default::Node;
 
@@ -99,10 +102,12 @@ public:
     const auto &all() const;
 private:
     OptionsNode &options;
-    EventOptionsItemsProxy items_Proxy;
+    EventOptionsItemsProxy items_proxy;
 };
 
 class EventProxy{
+public:
+    using EventOptionsSelectProxy = EventOptionsSelectProxyTemplate<EventProxy>;
 public:
     EventProxy(Event &event);
 public:
@@ -110,7 +115,10 @@ public:
 
     EventOptionsProxy &options();
     const EventOptionsProxy &options() const;
+
+    EventOptionsSelectProxy select();
+    const EventOptionsSelectProxy select() const;
 private:
     Event &event;
-    EventOptionsProxy options_Proxy;
+    EventOptionsProxy options_proxy;
 };

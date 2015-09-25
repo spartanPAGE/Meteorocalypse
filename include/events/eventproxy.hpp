@@ -4,6 +4,7 @@
 #include "items/itemsmanager.hpp"
 #include "characters/charactersmanager.hpp"
 #include "events/eventoptionsselectproxy.hpp"
+
 #include <list>
 #include <functional>
 
